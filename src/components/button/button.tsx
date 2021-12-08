@@ -18,7 +18,7 @@ export interface ITextField {
 	width?: number;
 	customColor: string;
 	margin: string
-	onHandleClick(): void
+	onHandleClick?(): void
 }
 
 export default function BasicBTN(props: ITextField) {

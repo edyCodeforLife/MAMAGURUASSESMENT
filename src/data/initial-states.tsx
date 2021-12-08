@@ -7,8 +7,6 @@ export const initialState: {
 } = {
 	user: {
 		user: {},
-		schedule: {},
-		appointment: {}
 	},
 	application: {
 		token: "",

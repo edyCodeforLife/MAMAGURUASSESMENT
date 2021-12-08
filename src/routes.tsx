@@ -5,6 +5,7 @@ import { NavListener } from './components/nav-listener/index';
 
 const HomePage = lazy(() => import('./pages/index').then(({ HomePage }) => ({ default: HomePage })));
 const LoginPage = lazy(() => import('./pages/index').then(({ LoginPage }) => ({ default: LoginPage })));
+const LandingPage = lazy(() => import('./pages/index').then(({ LandingPage }) => ({ default: LandingPage })));
 
 const Main = (props) => {
 	return (
@@ -13,7 +14,7 @@ const Main = (props) => {
 				<Switch>
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/" component={HomePage} />
-
+					<Route exact path="/landing" component={LandingPage} />
 				</Switch>
 			</Suspense>
 		</NavListener >

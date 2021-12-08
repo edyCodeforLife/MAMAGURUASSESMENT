@@ -15,7 +15,7 @@ function _NavListener(props) {
 				PUBLIC_URL.indexOf(currentUrl) < 0
 			) {
 				setTimeout(() => {
-					currentHistory.replace(LOGIN_URL);
+					currentHistory.replace(LANDING_URL);
 					window.location.reload();
 				});
 			}
@@ -29,8 +29,8 @@ function _NavListener(props) {
 			}
 		}
 
-		if (currentHistory.location.pathname === LOGIN_URL) {
-			currentHistory.push(LOGIN_URL);
+		if (currentHistory.location.pathname === LANDING_URL) {
+			currentHistory.push(LANDING_URL);
 		} else {
 			console.log("mantul")
 		}

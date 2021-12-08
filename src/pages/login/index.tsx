@@ -1,11 +1,18 @@
-import { memo, useState, useEffect, useCallback } from "react";
+import { memo, useState, useCallback } from "react";
 import { LoginScreen } from '../../components/pages-components/login/index'
 import { IRequestLogin } from '../../data/services/auth/auth-interface';
 import { IAuthServiceMama, AuthServiceMama } from '../../data/business/index';
 import { AltAlert } from '../../components/alert/index';
+import Cookies from 'js-cookie';
+import SimpleCryptoJS from 'simple-crypto-js';
+import * as LS from 'local-storage';
+import { SECRET_KEY2, CURRENTUSER } from '../../data/global/variables';
+import { useGlobalState } from '../../data/states';
+import { USER_ACTIONS } from '../../data/reducers/user-reducer';
 
 function _LoginPage(props) {
 	const _authService: IAuthServiceMama = new AuthServiceMama();
+	const [_, dispatch] = useGlobalState();
 	const [inputValue, setInputValue] = useState<IRequestLogin>({
 		user_name: '',
 		password: ''
@@ -22,6 +29,15 @@ function _LoginPage(props) {
 							subtitle: "Sukses",
 							type: 'success',
 						});
+						const simpleCrypto: any = new SimpleCryptoJS(SECRET_KEY2);
+						const encryptedText = simpleCrypto.encryptObject(res);
+						LS.set(CURRENTUSER, encryptedText);
+						dispatch({
+							type: USER_ACTIONS.CHANGE_USER,
+							data: { user: res }
+						});
+						Cookies.set('isMamaLoggedIn', 'yes');
+						Cookies.set('isMamaLoggedIn', 'yes', { domain: 'localhost' });
 					} else {
 						AltAlert.show({
 							title: "Terjadi kesalahan!",

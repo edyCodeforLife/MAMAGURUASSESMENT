@@ -8,3 +8,4 @@ export const globalColorDefault = '#1832AB';
 export const SECRET_KEY = 'UYGHJKSNDHKSDHguyaiksdjbd';
 export const SECRET_KEY2 = 'qwertyuisdfghjertyuio';
 export const SECRET_KEY3 = 'asdadadadasdadqe123123e';
+export const CURRENTUSER = 'Adsfd232NKS3sfas2AFfMZ3fd'
