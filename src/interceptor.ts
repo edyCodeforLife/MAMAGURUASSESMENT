@@ -84,8 +84,8 @@ if (!appSingletonInstance.isInitialize) {
 					if (history) {
 						//prevents browser from storing history with each change:
 						quiting = false;
-						if (window.location.pathname !== LANDING_URL) {
-							history.replace(LANDING_URL);
+						if (window.location.pathname !== LOGIN_URL) {
+							history.replace(LOGIN_URL);
 							window.location.reload();
 						}
 					}
