@@ -6,6 +6,8 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const zopfli = require("@gfx/zopfli");
+const webpack = require('webpack');
+const BrotliPlugin = require('brotli-webpack-plugin');
 
 module.exports = {
 	entry: path.join(__dirname, "src", "index.tsx"),
@@ -94,6 +96,15 @@ module.exports = {
 				concurrency: 100,
 			},
 		}),
+		new webpack.DefinePlugin({
+			'process.env.ENDPOINT': JSON.stringify('production')
+		}),
+		// new BrotliPlugin({
+		// 	asset: '[path].br[query]',
+		// 	test: /\.(js|css|html|svg)$/,
+		// 	threshold: 10240,
+		// 	minRatio: 0.8
+		// }),
 		new CompressionPlugin({
 			filename: "[path][base].gz",
 			test: /\.js$|\.css$|\.html$/,
@@ -133,14 +144,7 @@ module.exports = {
 			enforceSizeThreshold: 50000,
 			cacheGroups: {
 				vendor: {
-					name(module, chunks, cacheGroupKey) {
-						const moduleFileName = module
-							.identifier()
-							.split('/')
-							.reduceRight((item) => item);
-						const allChunksNames = chunks.map((item) => item.name).join('~');
-						return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
-					},
+					name: "node_vendors",
 					test: /[\\/]node_modules[\\/]/,
 					chunks: "all",
 					reuseExistingChunk: true,
