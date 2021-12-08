@@ -1,0 +1,10 @@
+export const AUTH_TOKEN_NAME = 'mama-usr';
+export const cookiesNewName = 'mama_new_token';
+export const LOGIN_URL = '/login';
+export const HOME_URL = '/';
+export const LANDING_URL = '/landing';
+export const PUBLIC_URL = [LOGIN_URL, '/forgot-password', '/list', LANDING_URL, '/register', '/blocks'];
+export const globalColorDefault = '#1832AB';
+export const SECRET_KEY = 'UYGHJKSNDHKSDHguyaiksdjbd';
+export const SECRET_KEY2 = 'qwertyuisdfghjertyuio';
+export const SECRET_KEY3 = 'asdadadadasdadqe123123e';

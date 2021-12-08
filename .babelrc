@@ -1,0 +1,87 @@
+{
+	"presets": [
+		[
+			"@babel/env",
+			{
+				"targets": {
+					"node": 6
+				}
+			}
+		],
+		"@babel/react",
+		[
+			"@babel/preset-react",
+			{
+				"runtime": "automatic"
+			}
+		]
+	],
+	"plugins": [
+		"@babel/plugin-proposal-optional-chaining",
+		"@babel/plugin-proposal-class-properties",
+		"transform-html-import-to-string",
+		[
+			"minify-dead-code-elimination",
+			{
+				"optimizeRawSize": true
+			}
+		],
+		[
+			"babel-plugin-transform-imports",
+			{
+				"@mui/material": {
+					"transform": "@mui/material/${member}",
+					"preventFullImport": true
+				},
+				"@mui/styles": {
+					"transform": "@mui/styles/${member}",
+					"preventFullImport": true
+				},
+				"@material/react-material-icon": {
+					"transform": "@material/react-material-icon/${member}",
+					"preventFullImport": true
+				},
+				"lodash": {
+					"transform": "lodash/${member}",
+					"preventFullImport": true
+				},
+				"local-storage": {
+					"transform": "local-storage/${member}",
+					"preventFullImport": true
+				},
+				"react": {
+					"transform": "react/${member}",
+					"preventFullImport": true
+				},
+				"react-dom": {
+					"transform": "react-dom/${member}",
+					"preventFullImport": true
+				},
+				"react-router-dom": {
+					"transform": "react-router-dom/${member}",
+					"preventFullImport": true
+				},
+				"simple-crypto-js": {
+					"transform": "simple-crypto-js/${member}",
+					"preventFullImport": true
+				},
+			}
+		],
+		[
+			"lodash",
+			{
+				"id": [
+					"async",
+					"lodash-bound"
+				]
+			}
+		]
+	],
+	"env": {
+		"test": {
+			"plugins": [
+				"transform-dynamic-import"
+			]
+		}
+	}
+}
