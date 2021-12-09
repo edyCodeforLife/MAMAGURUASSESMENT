@@ -20,7 +20,6 @@ function _LoginPage(props) {
 		password: ''
 	})
 
-
 	const onHandleLogin = () => {
 		if (inputValue.user_name !== '' && inputValue.password !== '') {
 			_authService.LoginService(inputValue, {

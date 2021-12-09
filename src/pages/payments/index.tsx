@@ -1,23 +1,27 @@
-import { memo, useEffect, useState } from "react";
-import { ReportsScreen } from '../../components/pages-components/reports/index';
+import { memo, useState, useEffect } from "react";
+import { PaymentsScreen } from '../../components/pages-components/payments/index';
+import { LOGIN_URL } from '../../data/global/variables';
 import Cookies from 'js-cookie';
 import { AltAlert } from '../../components/alert/index';
-import { IReportsServiceUser, ReportServiceUser } from '../../data/business/index';
+import { useGlobalState } from '../../data/states';
+import { USER_ACTIONS } from '../../data/reducers/user-reducer';
+import { IPaymentService, PaymentService } from '../../data/business/index';
 import * as LS from 'local-storage';
 import { SECRET_KEY2, CURRENTUSER } from '../../data/global/variables';
 import SimpleCryptoJS from 'simple-crypto-js';
-import { clone, map } from 'lodash';
-import { useGlobalState } from '../../data/states';
-import { USER_ACTIONS } from '../../data/reducers/user-reducer';
 
-function _ReportsPage(props) {
-	const _ReportService: IReportsServiceUser = new ReportServiceUser();
+function _PaymentPage(props) {
 	const isLoggedIn = Cookies.get("isMamaLoggedIn");
+	const _paymentService: IPaymentService = new PaymentService();
+	const [paymentList, setPaymentList] = useState([]);
 	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-	const [reportList, setReportList] = useState([]);
 	const [{
 		user: { route }
 	}, dispatch] = useGlobalState();
+
+	const onHandleClick = () => {
+		props.history.push(LOGIN_URL)
+	}
 
 	const handleClickedMenu = (id: number, fieldName: string) => {
 		dispatch({
@@ -63,56 +67,29 @@ function _ReportsPage(props) {
 		setIsUserLoggedIn(loggedIn);
 	}, [isLoggedIn]);
 
-
-	const getData = () => {
+	useEffect(() => {
 		let decryptedText;
 		const paymentObjEncrypted: any = LS.get(CURRENTUSER);
 		let simpleCrypto = new SimpleCryptoJS(SECRET_KEY2);
 		if (paymentObjEncrypted) {
 			decryptedText = simpleCrypto.decryptObject(paymentObjEncrypted);
 		}
-		_ReportService.ChildInfo(decryptedText?.user_id, {
+		_paymentService.paymentInfo(decryptedText?.user_id, {
 			Success: (res: any) => {
-				_ReportService.FetchReports(res[0]?.kids_id, {
-					Success: (res: any) => {
-						if (res?.reports) {
-							let cloned = clone(res?.reports);
-							let data = map(cloned, (item, idx) => {
-								item["imgPath"] = `http://falcon-dev.ap-southeast-1.elasticbeanstalk.com/api/images/image?image_id=${item.image_id}`;
-								return item;
-							});
-							setReportList(data);
-						}
-					}
-				})
+				setPaymentList(res);
 			}
 		})
-	}
-
-	const onHandleClick = (report_id: string) => {
-		const anchorEl = document.createElement('a');
-
-		anchorEl.href = `http://falcon-dev.ap-southeast-1.elasticbeanstalk.com/api/reports/download_report?report_id=${report_id}`;
-		anchorEl.target = '_blank';
-		anchorEl.rel = 'noopener';
-		setTimeout(() => {
-			anchorEl.click();
-		});
-	}
-
-	useEffect(() => {
-		getData()
 	}, [])
 
 	return (
-		<ReportsScreen
-			history={props.history}
+		<PaymentsScreen
 			handleClickedMenu={handleClickedMenu}
-			selectedIdx={route}
-			isUserLoggedIn={isUserLoggedIn}
-			reportList={reportList}
+			history={props.history}
 			onHandleClick={onHandleClick}
+			isUserLoggedIn={isUserLoggedIn}
+			selectedIdx={route}
+			paymentList={paymentList}
 		/>
 	)
 }
-export const ReportsPage = memo((_ReportsPage));
+export const PaymentPage = memo((_PaymentPage));

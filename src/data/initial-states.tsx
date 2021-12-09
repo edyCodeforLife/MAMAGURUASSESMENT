@@ -7,6 +7,7 @@ export const initialState: {
 } = {
 	user: {
 		user: {},
+		route: 0
 	},
 	application: {
 		token: "",

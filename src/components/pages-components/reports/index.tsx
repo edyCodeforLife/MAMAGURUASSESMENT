@@ -32,7 +32,7 @@ const CustomCardContent = styled(CardContent)((props) => ({
 	height: props.height
 }));
 
-const Text = styled('div')((props) => ({
+export const Text = styled('div')((props) => ({
 	fontSize: props.fsize,
 	color: props.color,
 	fontWeight: props.fweight,

@@ -51,11 +51,25 @@ export interface IHeader {
 	isUserLoggedIn: boolean;
 }
 
-const rightSideMenu = ["Reports", "Offers", "Payments", "Settings", "Logout"];
+const rightSideMenu = ["/", "/offers", "/payment", "/settings", "Logout"];
 
 function _Header(props: IHeader) {
 	const { history, isUserLoggedIn, imageUrl, handleClickedMenu, imageWidth, imageHeight, imageMaxheight, imageMaxWidth, selectedIdx } = props;
 
+	const switchLabel = (label: string) => {
+		switch (label) {
+			case "/":
+				return "Reports";
+			case "/offers":
+				return "Offers";
+			case "/payment":
+				return "Payments";
+			case "/settings":
+				return "Settings";
+			case "Logout":
+				return "Logout";
+		}
+	}
 	return (
 		<ContainerNavBar>
 			<ImageContainer
@@ -74,9 +88,9 @@ function _Header(props: IHeader) {
 							fontWeight={500}
 							key={idx}
 							onClick={() => handleClickedMenu(idx, item)}
-							opacity={selectedIdx === idx ? 1 : 0.3}
+							opacity={history.location.pathname === item ? 1 : 0.3}
 						>
-							{item}
+							{switchLabel(item)}
 						</ContainerRightSideMenuList>
 					))
 				)}
