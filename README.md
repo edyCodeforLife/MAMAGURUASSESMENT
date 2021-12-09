@@ -5,9 +5,6 @@ MamaGuru Web Apps
 
 Hello, My name Edy Susanto i make duplicate of Mamaguru web apps using React + Typescript.
 
-# Demo
-[Demo click here](https://trackcryptoforlife.netlify.app/)
-
 # API
 [Rest Service Base API from Mamaguru]("http://falcon-dev.ap-southeast-1.elasticbeanstalk.com/api")
 
