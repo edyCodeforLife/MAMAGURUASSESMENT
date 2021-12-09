@@ -19,7 +19,6 @@
   },
   "homepage": "https://github.com/edyCodeforLife/MAMAGURUASSESMENT#readme",
   "dependencies": {
-    "@material/react-material-icon": "^0.15.0",
     "@mui/material": "^5.2.3",
     "@mui/styles": "^5.2.3",
     "axios": "^0.24.0",
@@ -38,8 +37,8 @@
     "@babel/preset-env": "7.13.12",
     "@babel/preset-react": "7.13.13",
     "@gfx/zopfli": "1.0.15",
-    "@types/react": "17.0.3",
     "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
+    "@types/react": "17.0.3",
     "@types/styled-components": "^5.1.14",
     "babel-loader": "8.2.2",
     "babel-plugin-minify-dead-code-elimination": "0.5.1",
