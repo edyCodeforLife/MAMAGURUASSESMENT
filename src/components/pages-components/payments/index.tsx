@@ -1,9 +1,9 @@
-import { memo } from 'react';
+import { Fragment, memo } from 'react';
 import { styled } from '@mui/system';
 import { Header } from '../../header/index';
-import BasicBTN from '../../button/button';
 import { ContainerScreen } from '../login/index';
 import { Text } from '../reports/index';
+import BasicBTN from '../../button/button';
 
 const ContainerForm = styled('div')({
 	width: '100%',
@@ -16,7 +16,7 @@ const ContainerForm = styled('div')({
 
 export interface IPaymentsScreen {
 	history?: any;
-	onHandleClick(): void;
+	onHandleClick(phoneNumber: string): void;
 	isUserLoggedIn: boolean;
 	handleClickedMenu(id: number, fieldName: string): void;
 	selectedIdx: number;
@@ -40,9 +40,21 @@ function _PaymentsScreen(props: IPaymentsScreen) {
 
 			<ContainerForm>
 				{paymentList.length === 0 && (
-					<Text fsize={16} fweight={"lighter"} color={"#888888"}>
-						No Payment Requested
-					</Text>
+					<Fragment>
+						<Text fsize={16} fweight={"lighter"} color={"#888888"}>
+							No Payment Requested
+						</Text>
+
+						<BasicBTN
+							text={"Contact for Modification"}
+							padding={"10px"}
+							variant={"outlined"}
+							backgroundColor={"#fff"}
+							customColor={"#7AC3D1"}
+							margin={"10px 0px"}
+							onHandleClick={() => onHandleClick("62243514444")}
+						/>
+					</Fragment>
 				)}
 			</ContainerForm>
 

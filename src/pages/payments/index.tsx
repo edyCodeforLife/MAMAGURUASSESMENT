@@ -19,8 +19,15 @@ function _PaymentPage(props) {
 		user: { route }
 	}, dispatch] = useGlobalState();
 
-	const onHandleClick = () => {
-		props.history.push(LOGIN_URL)
+	const onHandleClick = (phoneNumber: string) => {
+		const anchorEl = document.createElement('a');
+
+		anchorEl.href = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=I+would+like+to+modify+payment&app_absent=0`;
+		anchorEl.target = '_blank';
+		anchorEl.rel = 'noopener';
+		setTimeout(() => {
+			anchorEl.click();
+		});
 	}
 
 	const handleClickedMenu = (id: number, fieldName: string) => {

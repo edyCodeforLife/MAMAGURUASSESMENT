@@ -1,21 +1,23 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useCallback } from "react";
 import { SettingScreen } from '../../components/pages-components/settings/index';
-import { LOGIN_URL } from '../../data/global/variables';
 import Cookies from 'js-cookie';
 import { AltAlert } from '../../components/alert/index';
 import { useGlobalState } from '../../data/states';
 import { USER_ACTIONS } from '../../data/reducers/user-reducer';
+import { ISettingService, SettingService } from '../../data/business/index';
+import * as LS from 'local-storage';
+import { SECRET_KEY2, CURRENTUSER } from '../../data/global/variables';
+import SimpleCryptoJS from 'simple-crypto-js';
 
 function _SettingsPage(props) {
 	const isLoggedIn = Cookies.get("isMamaLoggedIn");
+	const _SettingService: ISettingService = new SettingService();
+	const [userInfo, setUserInfo] = useState({});
 	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 	const [{
 		user: { route }
 	}, dispatch] = useGlobalState();
 
-	const onHandleClick = () => {
-		props.history.push(LOGIN_URL)
-	}
 
 	const handleClickedMenu = (id: number, fieldName: string) => {
 		dispatch({
@@ -53,6 +55,39 @@ function _SettingsPage(props) {
 		}
 	}
 
+	const getInitialUserData = () => {
+		let decryptedText;
+		const paymentObjEncrypted: any = LS.get(CURRENTUSER);
+		let simpleCrypto = new SimpleCryptoJS(SECRET_KEY2);
+		if (paymentObjEncrypted) {
+			decryptedText = simpleCrypto.decryptObject(paymentObjEncrypted);
+		}
+		let data = {};
+		_SettingService.userInfomation(decryptedText?.user_id, {
+			Success: (res: any) => {
+				data["user_name"] = res?.user_name;
+				data["password"] = res?.password;
+				data["first_name"] = res?.first_name;
+				data["last_name"] = res?.last_name;
+				data["phone_number"] = res?.phone_number;
+				data["email"] = res?.email;
+				setTimeout(() => {
+					setUserInfo(data);
+				}, 500);
+			}
+		})
+	}
+
+	useEffect(() => {
+		getInitialUserData();
+	}, []);
+
+	const onChangeField = useCallback((fieldId: string, value: any, error?: any) => {
+		let obj: any = {};
+		obj[fieldId] = value;
+		setUserInfo({ ...userInfo, ...obj })
+	}, [userInfo]);
+
 	useEffect(() => {
 		let loggedIn = false
 		if (isLoggedIn === "yes") {
@@ -64,10 +99,11 @@ function _SettingsPage(props) {
 	return (
 		<SettingScreen
 			handleClickedMenu={handleClickedMenu}
+			onChangeField={onChangeField}
 			history={props.history}
-			onHandleClick={onHandleClick}
 			isUserLoggedIn={isUserLoggedIn}
 			selectedIdx={route}
+			userInfo={userInfo}
 		/>
 	)
 }

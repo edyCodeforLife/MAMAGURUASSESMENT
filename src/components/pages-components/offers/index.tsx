@@ -37,7 +37,7 @@ function _OffersScreen(props: IOffersProps) {
 			/>
 
 			<ContainerForm>
-				fdsfdsfdsf
+				Hello, Nice to Meet You!
 			</ContainerForm>
 
 		</ContainerScreen>

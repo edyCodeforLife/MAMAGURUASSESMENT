@@ -8,14 +8,14 @@ const CustomTxtField = styled(TextField)((props) => ({
 
 export interface ITextField {
 	id: string;
-	label: string;
-	width: number;
+	label?: string;
+	width: any;
 	variant: 'standard' | 'filled' | 'outlined';
 	autoFocus?: boolean;
 	value: any;
 	onChangeField(fieldId: string, value: any, error?: any): void;
 	fieldId: string;
-	handleKeyEnter(e): void;
+	handleKeyEnter?(e): void;
 }
 
 export default function BasicTextFields(props: ITextField) {

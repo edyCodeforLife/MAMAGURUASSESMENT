@@ -1,7 +1,8 @@
 import { memo } from 'react';
 import { styled } from '@mui/system';
 import { Header } from '../../header/index';
-import BasicBTN from '../../button/button';
+import BasicTextFields from '../../forms/text-field';
+import { Text } from '../reports/index';
 import { ContainerScreen } from '../login/index';
 
 const ContainerForm = styled('div')({
@@ -12,17 +13,25 @@ const ContainerForm = styled('div')({
 	justifyContent: 'center',
 	marginTop: 80
 });
+const Label = styled('div')({
+	maxWidth: '100%',
+	margin: '12px 0px',
+	fontSize: 20,
+	fontWeight: 500,
+	textAlign: 'left'
+})
 
 export interface ISettingsProps {
 	history?: any;
-	onHandleClick(): void;
+	onChangeField(fieldId: string, value: any, error?: any): void;
 	isUserLoggedIn: boolean;
 	handleClickedMenu(id: number, fieldName: string): void;
 	selectedIdx: number;
+	userInfo: any;
 }
 
 function _SettingScreen(props: ISettingsProps) {
-	const { history, onHandleClick, selectedIdx, handleClickedMenu, isUserLoggedIn } = props;
+	const { history, userInfo, onChangeField, selectedIdx, handleClickedMenu, isUserLoggedIn } = props;
 
 	return (
 		<ContainerScreen>
@@ -37,7 +46,70 @@ function _SettingScreen(props: ISettingsProps) {
 			/>
 
 			<ContainerForm>
-				fdsfdsfdsf
+				<Text fsize={30} fweight={500} color={"#888888"}>
+					My Information
+				</Text>
+
+				<Label>Username</Label>
+				<BasicTextFields
+					id={"outlined-basic"}
+					variant={"outlined"}
+					value={userInfo?.user_name}
+					fieldId={"user_name"}
+					width={"100%"}
+					onChangeField={onChangeField}
+				/>
+
+				<Label>Password</Label>
+				<BasicTextFields
+					id={"outlined-basic"}
+					variant={"outlined"}
+					value={userInfo?.password}
+					fieldId={"password"}
+					width={"100%"}
+					onChangeField={onChangeField}
+				/>
+
+				<Label>First Name</Label>
+				<BasicTextFields
+					id={"outlined-basic"}
+					variant={"outlined"}
+					value={userInfo?.first_name}
+					fieldId={"first_name"}
+					width={"100%"}
+					onChangeField={onChangeField}
+				/>
+
+				<Label>Last Name</Label>
+				<BasicTextFields
+					id={"outlined-basic"}
+					variant={"outlined"}
+					value={userInfo?.last_name}
+					fieldId={"last_name"}
+					width={"100%"}
+					onChangeField={onChangeField}
+				/>
+
+				<Label>Phone Number</Label>
+				<BasicTextFields
+					id={"outlined-basic"}
+					variant={"outlined"}
+					value={userInfo?.phone_number}
+					fieldId={"phone_number"}
+					width={"100%"}
+					onChangeField={onChangeField}
+				/>
+
+				<Label>Email</Label>
+				<BasicTextFields
+					id={"outlined-basic"}
+					variant={"outlined"}
+					value={userInfo?.email}
+					fieldId={"email"}
+					width={"100%"}
+					onChangeField={onChangeField}
+				/>
+
 			</ContainerForm>
 
 		</ContainerScreen>
