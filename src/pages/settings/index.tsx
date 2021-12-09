@@ -35,7 +35,6 @@ function _SettingsPage(props) {
 					type: 'success',
 				});
 				props.history.push('/login');
-				window.location.reload();
 			}, 500);
 		}
 		if (fieldName === "/offers") {

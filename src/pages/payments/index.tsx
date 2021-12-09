@@ -46,7 +46,6 @@ function _PaymentPage(props) {
 					type: 'success',
 				});
 				props.history.push('/login');
-				window.location.reload();
 			}, 500);
 		}
 		if (fieldName === "/offers") {
