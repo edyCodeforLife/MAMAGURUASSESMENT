@@ -94,67 +94,6 @@ module.exports = {
 			options: {
 				concurrency: 100,
 			},
-		}),
-		new webpack.DefinePlugin({
-			'process.env.ENDPOINT': JSON.stringify('production')
-		}),
-		// new BrotliPlugin({
-		// 	asset: '[path].br[query]',
-		// 	test: /\.(js|css|html|svg)$/,
-		// 	threshold: 10240,
-		// 	minRatio: 0.8
-		// }),
-		new CompressionPlugin({
-			filename: "[path][base].gz",
-			test: /\.js$|\.css$|\.html$/,
-			threshold: 10240,
-			compressionOptions: {
-				level: 1, numiterations: 15, algorithm(input, compressionOptions, callback) {
-					return zopfli.gzip(input, compressionOptions, callback);
-				},
-			},
-			minRatio: 0.8,
-		}),
-	],
-	optimization: {
-		minimize: false,
-		removeAvailableModules: true,
-		removeEmptyChunks: true,
-		runtimeChunk: 'single',
-		mergeDuplicateChunks: true,
-		moduleIds: 'natural',
-		flagIncludedChunks: true,
-		minimizer: [new TerserPlugin({
-			terserOptions: {
-				format: {
-					comments: false,
-				},
-			},
-			extractComments: false,
-			// enable parallel running
-			parallel: true,
-		})],
-		splitChunks: {
-			chunks: 'async',
-			minSize: 20000,
-			minChunks: 1,
-			maxAsyncRequests: 30,
-			maxInitialRequests: 30,
-			enforceSizeThreshold: 50000,
-			cacheGroups: {
-				vendor: {
-					name: "node_vendors",
-					test: /[\\/]node_modules[\\/]/,
-					chunks: "all",
-					reuseExistingChunk: true,
-					priority: -10,
-				}
-			}
-		}
-	},
-	performance: {
-		hints: false,
-		maxEntrypointSize: 400000,
-		maxAssetSize: 100000
-	}
+		})
+	]
 };
