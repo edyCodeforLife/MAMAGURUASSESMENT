@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server --history-api-fallback --mode development --open --port 3000",
     "start": "webpack --mode development --history-api-fallback ",
-    "build": "webpack --history-api-fallback --mode production --legacy-peer-deps"
+    "build": "webpack --history-api-fallback --mode production --force --legacy-peer-deps"
   },
   "repository": {
     "type": "git",
