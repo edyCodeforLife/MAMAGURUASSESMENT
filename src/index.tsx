@@ -7,7 +7,6 @@ import { StateProvider } from './data/states';
 import { initialState } from './data/initial-states';
 import { IUserState, userReducer } from "./data/reducers/user-reducer";
 import { IAppState, appReducer } from "./data/reducers/app-reducer";
-import './interceptor.ts'
 
 const mainReducer = ({ user, application }: { user: IUserState, application: IAppState }, action: any) => ({
 	user: userReducer(user, action),

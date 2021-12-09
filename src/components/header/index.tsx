@@ -28,6 +28,16 @@ const ContainerRightSideMenu = styled('div')((props) => ({
 	fontWeight: props.fontWeight
 }));
 
+const ContainerRightSideMenuList = styled('div')((props) => ({
+	color: 'black',
+	display: 'flex',
+	alignItems: 'center',
+	margin: '0px 10px',
+	fontWeight: props.fontWeight,
+	cursor: 'pointer',
+	opacity: props.opacity
+}));
+
 
 export interface IHeader {
 	imageUrl: string;
@@ -36,10 +46,15 @@ export interface IHeader {
 	imageMaxheight?: number;
 	imageMaxWidth?: number;
 	history?: any;
+	handleClickedMenu?(id: number, fieldName: string): void;
+	selectedIdx?: number;
+	isUserLoggedIn: boolean;
 }
 
+const rightSideMenu = ["Reports", "Offers", "Payments", "Settings", "Logout"];
+
 function _Header(props: IHeader) {
-	const { history, imageUrl, imageWidth, imageHeight, imageMaxheight, imageMaxWidth } = props;
+	const { history, isUserLoggedIn, imageUrl, handleClickedMenu, imageWidth, imageHeight, imageMaxheight, imageMaxWidth, selectedIdx } = props;
 
 	return (
 		<ContainerNavBar>
@@ -49,7 +64,24 @@ function _Header(props: IHeader) {
 				src={imageUrl}
 			/>
 			<ContainerRightSideMenu fontWeight={500}>
-				Login
+				{!isUserLoggedIn ? (
+					<div>
+						Login
+					</div>
+				) : (
+					rightSideMenu.map((item, idx) => (
+						<ContainerRightSideMenuList
+							fontWeight={500}
+							key={idx}
+							onClick={() => handleClickedMenu(idx, item)}
+							opacity={selectedIdx === idx ? 1 : 0.3}
+						>
+							{item}
+						</ContainerRightSideMenuList>
+					))
+				)}
+
+
 			</ContainerRightSideMenu>
 
 		</ContainerNavBar>

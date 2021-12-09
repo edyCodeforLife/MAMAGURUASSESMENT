@@ -4,9 +4,9 @@ import { Header } from '../../header/index';
 import BasicTextFields from '../../forms/text-field';
 import BasicBTN from '../../button/button';
 
-const ContainerLoginScreen = styled('div')({
+export const ContainerScreen = styled('div')({
 	boxSizing: 'border-box',
-	padding: 60,
+	padding: '30px 50px',
 	width: '100vw',
 	height: '100vh',
 	position: 'relative',
@@ -14,7 +14,7 @@ const ContainerLoginScreen = styled('div')({
 	flexDirection: 'column'
 });
 
-const ContainerForm = styled('div')({
+export const ContainerForm = styled('div')({
 	width: '100%',
 	boxSizing: 'border-box',
 	display: 'inline-grid',
@@ -36,18 +36,20 @@ export interface ILoginProps {
 	inputValue: any;
 	onChangeField(fieldId: string, value: any): void;
 	handleKeyEnter(e): void;
+	isUserLoggedIn: boolean;
 }
 
 function _LoginScreen(props: ILoginProps) {
-	const { onHandleLogin, history, handleKeyEnter, inputValue, onChangeField } = props;
+	const { onHandleLogin, isUserLoggedIn, history, handleKeyEnter, inputValue, onChangeField } = props;
 
 	return (
-		<ContainerLoginScreen>
+		<ContainerScreen>
 			<Header
 				imageHeight={60}
 				imageWidth={120}
 				imageUrl={"http://portal-dev.ap-southeast-1.elasticbeanstalk.com/logo_full.png"}
 				history={history}
+				isUserLoggedIn={isUserLoggedIn}
 			/>
 
 			<ContainerForm>
@@ -86,7 +88,7 @@ function _LoginScreen(props: ILoginProps) {
 				/>
 			</ContainerForm>
 
-		</ContainerLoginScreen>
+		</ContainerScreen>
 	)
 }
 

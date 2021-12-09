@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from "react";
+import { memo, useState, useCallback, useEffect } from "react";
 import { LoginScreen } from '../../components/pages-components/login/index'
 import { IRequestLogin } from '../../data/services/auth/auth-interface';
 import { IAuthServiceMama, AuthServiceMama } from '../../data/business/index';
@@ -13,6 +13,8 @@ import { USER_ACTIONS } from '../../data/reducers/user-reducer';
 function _LoginPage(props) {
 	const _authService: IAuthServiceMama = new AuthServiceMama();
 	const [_, dispatch] = useGlobalState();
+	const isLoggedIn = Cookies.get("isMamaLoggedIn");
+	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 	const [inputValue, setInputValue] = useState<IRequestLogin>({
 		user_name: '',
 		password: ''
@@ -25,8 +27,8 @@ function _LoginPage(props) {
 				Success: (res: any) => {
 					if (res.success) {
 						AltAlert.show({
-							title: "Sukses",
-							subtitle: "Sukses",
+							title: "Login Success",
+							subtitle: "Login berhasil",
 							type: 'success',
 						});
 						const simpleCrypto: any = new SimpleCryptoJS(SECRET_KEY2);
@@ -38,6 +40,9 @@ function _LoginPage(props) {
 						});
 						Cookies.set('isMamaLoggedIn', 'yes');
 						Cookies.set('isMamaLoggedIn', 'yes', { domain: 'localhost' });
+						setTimeout(() => {
+							props.history.push('/')
+						}, 500);
 					} else {
 						AltAlert.show({
 							title: "Terjadi kesalahan!",
@@ -72,6 +77,14 @@ function _LoginPage(props) {
 
 	}, [inputValue]);
 
+	useEffect(() => {
+		let loggedIn = false
+		if (isLoggedIn === "yes") {
+			loggedIn = true
+		}
+		setIsUserLoggedIn(loggedIn);
+	}, [isLoggedIn])
+
 	return (
 		<LoginScreen
 			history={props.history}
@@ -79,6 +92,7 @@ function _LoginPage(props) {
 			onChangeField={onChangeField}
 			inputValue={inputValue}
 			handleKeyEnter={handleKeyEnter}
+			isUserLoggedIn={isUserLoggedIn}
 		/>
 	)
 }

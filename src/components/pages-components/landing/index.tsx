@@ -2,16 +2,7 @@ import { memo } from 'react';
 import { styled } from '@mui/system';
 import { Header } from '../../header/index';
 import BasicBTN from '../../button/button';
-
-const ContainerLoginScreen = styled('div')({
-	boxSizing: 'border-box',
-	padding: 60,
-	width: '100vw',
-	height: '100vh',
-	position: 'relative',
-	display: 'flex',
-	flexDirection: 'column'
-});
+import { ContainerScreen } from '../login/index';
 
 const ContainerForm = styled('div')({
 	width: '100%',
@@ -42,18 +33,20 @@ const SubTitle = styled('h4')({
 export interface ILandingProps {
 	history?: any;
 	onHandleClick(): void;
+	isUserLoggedIn: boolean
 }
 
 function _LandingScreen(props: ILandingProps) {
-	const { history, onHandleClick } = props;
+	const { history, onHandleClick, isUserLoggedIn } = props;
 
 	return (
-		<ContainerLoginScreen>
+		<ContainerScreen>
 			<Header
 				imageHeight={60}
 				imageWidth={120}
 				imageUrl={"http://portal-dev.ap-southeast-1.elasticbeanstalk.com/logo_full.png"}
 				history={history}
+				isUserLoggedIn={isUserLoggedIn}
 			/>
 
 			<ContainerForm>
@@ -75,7 +68,7 @@ function _LandingScreen(props: ILandingProps) {
 				/>
 			</ContainerForm>
 
-		</ContainerLoginScreen>
+		</ContainerScreen>
 	)
 }
 

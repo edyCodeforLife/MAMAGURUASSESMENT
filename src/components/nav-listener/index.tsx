@@ -1,16 +1,17 @@
 import { useEffect, Fragment, memo } from 'react';
 import { withRouter } from 'react-router-dom';
-import { PUBLIC_URL, LOGIN_URL, LANDING_URL, HOME_URL } from '../../data/global/variables';
-import { getToken } from '../../data/hooks/auth-token';
+import { PUBLIC_URL, LANDING_URL, HOME_URL } from '../../data/global/variables';
+import Cookies from 'js-cookie';
 
 function _NavListener(props) {
 	let currentHistory = props.history;
 	let currentUrl = currentHistory.location.pathname;
 	const navigatorChanged = () => {
 		// check user authentication
-		let token = getToken();
+		let isLoggedIn = Cookies.get("isMamaLoggedIn");
+		console.log(isLoggedIn)
 
-		if (!token) {
+		if (isLoggedIn === "no" || isLoggedIn === undefined) {
 			if (
 				PUBLIC_URL.indexOf(currentUrl) < 0
 			) {

@@ -7,7 +7,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const zopfli = require("@gfx/zopfli");
 const webpack = require('webpack');
-const BrotliPlugin = require('brotli-webpack-plugin');
 
 module.exports = {
 	entry: path.join(__dirname, "src", "index.tsx"),
